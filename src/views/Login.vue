@@ -3,17 +3,11 @@
     <el-col :span="6">
       <div shadow="hover" class="login-container">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-
           <div class="login-container-title">后台管理系统</div>
 
           <el-form-item prop="username" class="login-username-container">
-            <el-input
-              placeholder="请输入账号"
-              v-model="ruleForm.username"
-              clearable
-            ></el-input>
+            <el-input placeholder="请输入账号" v-model="ruleForm.username" clearable></el-input>
           </el-form-item>
-
 
           <el-input
             class="login-password-container"
@@ -22,13 +16,11 @@
             show-password
           ></el-input>
 
-
           <el-button
             class="login-submit-container"
             type="primary"
             @click="submitForm('ruleForm')"
           >L o g i n</el-button>
-          
         </el-form>
       </div>
     </el-col>
@@ -39,6 +31,8 @@
 </template>
 
 <script>
+import { loginAndGetToken } from "@/api/login";
+import { setToken,removeToken } from '@/util/auth'
 let usernameResolve = null;
 let usernamePromise = null;
 let submiting = false;
@@ -79,21 +73,20 @@ export default {
         usernameResolve = resolved;
       });
       submiting = true;
+
       this.$refs[formName].validate(() => {});
       usernamePromise.then((callback) => {
-        this.$http.get('http://localhost:3000/login?username='+this.ruleForm.username)
-            .then((data)=>{
-                if(data.data.length==0){
-                    callback(new Error('用户名不存在'))
-                }else{
-                    let info = data.data[0]
-                    let token = info && info.token
-                    callback()
-                    //api的封装
-                    //cookie持久存储
-                    //动态路由处理
-                }
-            })
+        loginAndGetToken({
+          username: loginInfo.username,
+        }).then((token) => {
+          if (!token) {
+            callback(new Error("用户名不存在"));
+          } else {
+            removeToken()
+            setToken(token)
+            callback();
+          }
+        });
       });
     },
   },
