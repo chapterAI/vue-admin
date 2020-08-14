@@ -1,20 +1,20 @@
 import Axios from 'axios';
 import config from '@/config'
 import { getToken } from './auth'
+import { requestAnimation, responseAnimation } from '@/util/adminRequestAnimation'
 
 const service = new Axios.create({
     baseURL: config.ADMIN_BACKEND_ROOT.main,
     timeout: 5000
 })
 
-let requestAnimation = null;
-let responseAnimation = null;
 
 /**
  * 数据拦截器处理|header处理--token
  */
 service.interceptors.request.use(
     config => {
+        //虽然请求头里会有，但是没有后端处理，是个摆设
         const token = getToken()
         if (token) {
             config.headers['token'] = token
@@ -60,7 +60,7 @@ service.interceptors.response.use(
 service.interceptors.response.use(
     data => {
         // console.log(data)
-        if(data.code === 500 || data.code === 302){
+        if (data.code === 500 || data.code === 302) {
             //全局处理
         }
         return data
@@ -70,9 +70,5 @@ service.interceptors.response.use(
     }
 )
 
-export default{
-    request:service,
-    requestAnimation,
-    responseAnimation
-}
+export default service
 

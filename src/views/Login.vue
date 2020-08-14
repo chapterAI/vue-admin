@@ -1,21 +1,22 @@
 <template>
   <div id="app-login">
+    <!-- body部分 -->
     <el-col :span="6">
       <div shadow="hover" class="login-container">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
           <div class="login-container-title">后台管理系统</div>
-
+          <!-- 账号框 -->
           <el-form-item prop="username" class="login-username-container">
             <el-input placeholder="请输入账号" v-model="ruleForm.username" clearable></el-input>
           </el-form-item>
-
+          <!-- 密码框 -->
           <el-input
             class="login-password-container"
             placeholder="请输入密码"
             v-model="ruleForm.password"
             show-password
           ></el-input>
-
+          <!-- 提交按钮 -->
           <el-button
             class="login-submit-container"
             type="primary"
@@ -24,6 +25,7 @@
         </el-form>
       </div>
     </el-col>
+    <!-- footer部分 -->
     <div class="footer">
       <div class="provider">design by chapter</div>
     </div>
@@ -31,8 +33,8 @@
 </template>
 
 <script>
-import { loginAndGetToken } from "@/api/login";
-import { setToken,removeToken } from '@/util/auth'
+import { loginAndGetToken, getUserInfo } from "@/api/login";
+import { mapGetters, mapMutations } from "vuex";
 let usernameResolve = null;
 let usernamePromise = null;
 let submiting = false;
@@ -65,30 +67,45 @@ export default {
     };
   },
   methods: {
+    ...mapMutations({
+      setToken: "auth/setToken",
+      setAuth: "auth/setAuth",
+    }),
     submitForm(formName) {
       //没有后端，只能模拟一下
-      let loginInfo = {};
-      loginInfo.username = this.ruleForm.username;
+      /* 登陆信息处理 */
+      const username = this.ruleForm.username;
       usernamePromise = new Promise((resolved, rejected) => {
         usernameResolve = resolved;
       });
       submiting = true;
-
+      /* 获取用户token，处理组件的显示 */
       this.$refs[formName].validate(() => {});
       usernamePromise.then((callback) => {
-        loginAndGetToken({
-          username: loginInfo.username,
-        }).then((token) => {
+        loginAndGetToken(username).then((token) => {
           if (!token) {
             callback(new Error("用户名不存在"));
           } else {
-            removeToken()
-            setToken(token)
+            this.setToken(token);
             callback();
+            /* 获取用户info信息并跳转 */
+            if (this.getToken) {
+              getUserInfo(this.getToken).then((userInfo) => {
+                if (userInfo && userInfo.auth) {
+                  this.setAuth(userInfo.auth);
+                  this.$router.push("/");
+                }
+              });
+            }
           }
         });
       });
     },
+  },
+  computed: {
+    ...mapGetters({
+      getToken: "auth/getToken",
+    }),
   },
 };
 </script>

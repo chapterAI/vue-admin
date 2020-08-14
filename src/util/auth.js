@@ -13,3 +13,8 @@ export function setToken(tokenVal) {
 export function removeToken() {
     return Cookie.remove(TokenKey)
 }
+
+export const NONE_ACCESS = 1;
+export const GUEST_ACCESS = 2;
+export const EDITOR_ACCESS = 3;
+export const ADMIN_ACCESS = 4;

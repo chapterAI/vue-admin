@@ -1,12 +1,33 @@
-import adminRequest from '@/util/adminRequest'
+import Request from '@/util/adminRequest'
+import { setAnimation, clearAnimation } from '@/util/adminRequestAnimation'
 
-export function loginAndGetToken(loginObj) {
-    return adminRequest.request({
+/* 获取token */
+export function loginAndGetToken(username) {
+    return Request({
         url: '/login',
         method: 'get',
-        params: loginObj
+        params: {
+            username:username
+        }
     }).then((data) => {
-        let token = data.data && data.data[0] && data.data[0].token
+        data = data.data && data.data[0]
+        let token = data && data.token
         return token
+    })
+}
+
+/* 获取用户信息 */
+export function getUserInfo(token) {
+    return Request({
+        url: '/getUserInfo',
+        method: 'get',
+        params: { 
+            token 
+        }
+    }).then((data) => {
+        data = data.data && data.data[0]
+        let userInfo = {}
+        userInfo.auth = data && data.access
+        return userInfo
     })
 }
