@@ -33,8 +33,9 @@
 </template>
 
 <script>
-import { loginAndGetToken, getUserInfo } from "@/api/login";
+import { loginAndGetToken, getUserInfo } from "@/ajax/request/login";
 import { mapGetters, mapMutations } from "vuex";
+
 let usernameResolve = null;
 let usernamePromise = null;
 let submiting = false;
@@ -69,7 +70,7 @@ export default {
   methods: {
     ...mapMutations({
       setToken: "auth/setToken",
-      setAuth: "auth/setAuth",
+      setLevel: "auth/setLevel",
     }),
     submitForm(formName) {
       //没有后端，只能模拟一下
@@ -92,7 +93,7 @@ export default {
             if (this.getToken) {
               getUserInfo(this.getToken).then((userInfo) => {
                 if (userInfo && userInfo.auth) {
-                  this.setAuth(userInfo.auth);
+                  this.setLevel(userInfo.auth);
                   this.$router.push("/");
                 }
               });
