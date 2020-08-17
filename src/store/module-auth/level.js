@@ -8,14 +8,17 @@ const levelMap = {
     'admin': ACCESS_AUTH.ADMIN_ACCESS
 }
 
-
 export const levelState = {
-    level: ACCESS_AUTH.NONE_ACCESS
+    level: ACCESS_AUTH.NONE_ACCESS,
+    dirty: true
 }
 
 export const levelGetters = {
     getLevel(state, getters) {
         return state.level
+    },
+    needUpdate(state){
+        return state.dirty
     }
 }
 
@@ -25,6 +28,12 @@ export const levelMutations = {
             console.log(levelMap[auth])
             state.level = levelMap[auth]
         }
+    },
+    hasDirty(state){
+        state.dirty = true
+    },
+    hasUpdated(state){
+        state.dirty = false
     }
 }
 

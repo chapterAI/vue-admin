@@ -120,7 +120,7 @@ $margin-between-div: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("../../src/assets/login/timg.jpg");
+  background: url("../../../src/assets/login/timg.jpg");
   filter: blur(0px);
 
   .login-container {

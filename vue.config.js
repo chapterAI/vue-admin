@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-const setting = require('./src/setting.js')
+const setting = require('./setting.js')
 
 const name = setting.title || 'vue Element Admin'
 
