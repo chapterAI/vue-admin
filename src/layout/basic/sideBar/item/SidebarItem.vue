@@ -2,7 +2,7 @@
   <div v-if="!route.hidden">
     <template v-if="!hasChildren">
       <router-link :to="basicPath">
-        <el-menu-item :index="basicPath" :class="{'nest-color':isNest}">
+        <el-menu-item :index="basicPath">
           <i :class="route.meta && route.meta.icon"></i>
           <span slot="title">{{ route.meta && route.meta.title }}</span>
         </el-menu-item>
@@ -70,7 +70,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nest-color {
 
+.nest-menu .el-submenu > .el-submenu__title,
+.el-submenu .el-menu-item {
+  background-color: #1f2d3d !important;
+
+  &:hover {
+    background-color: #001528 !important;
+  }
 }
+
 </style>

@@ -47,20 +47,21 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../style/variables.scss";
+$sideBarWidth:13.8vw;
 
 #layout {
   display: flex;
   #sideBar-container {
-    width: 15vw;
+    width: $sideBarWidth;
     height: 100vh;
     background-color: $menuBg;
-    overflow: auto;
   }
 
   #main-app {
-    width: 85vw;
+    width: 100-$sideBarWidth;
     height: 100vh;
     overflow: auto;
   }
+
 }
 </style>

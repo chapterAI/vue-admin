@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
+  <el-scrollbar style="height:100vh">
     <el-menu
       :default-active="activeMenu"
       :collapse="isCollapse"
@@ -59,4 +59,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
