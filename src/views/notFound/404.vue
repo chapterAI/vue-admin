@@ -1,5 +1,7 @@
 <template>
-  <div>123</div>
+    <div>
+        404
+    </div>
 </template>
 
 <script>
@@ -8,6 +10,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

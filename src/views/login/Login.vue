@@ -34,7 +34,7 @@
 
 <script>
 import { loginAndGetToken, getUserInfo } from "@/ajax/request/login";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations,mapActions } from "vuex";
 
 let usernameResolve = null;
 let usernamePromise = null;
@@ -68,14 +68,14 @@ export default {
     };
   },
   methods: {
-    ...mapMutations({
-      setToken: "auth/setToken",
-      setLevel: "auth/setLevel",
+    ...mapActions({
+      login:'auth/login'
     }),
     submitForm(formName) {
       //没有后端，只能模拟一下
       /* 登陆信息处理 */
-      const username = this.ruleForm.username;
+      const loginObj = {}
+      loginObj.username = this.ruleForm.username;
       usernamePromise = new Promise((resolved, rejected) => {
         usernameResolve = resolved;
       });
@@ -83,31 +83,18 @@ export default {
       /* 获取用户token，处理组件的显示 */
       this.$refs[formName].validate(() => {});
       usernamePromise.then((callback) => {
-        loginAndGetToken(username).then((token) => {
-          if (!token) {
-            callback(new Error("用户名不存在"));
-          } else {
-            this.setToken(token);
-            callback();
-            /* 获取用户info信息并跳转 */
-            if (this.getToken) {
-              getUserInfo(this.getToken).then((userInfo) => {
-                if (userInfo && userInfo.auth) {
-                  this.setLevel(userInfo.auth);
-                  this.$router.push("/");
-                }
-              });
+        this.login(loginObj)
+          .then((data)=>{
+            if(data === false){
+              callback(new Error("用户名不存在"));
+            }else{
+              callback();
+              this.$router.push("/",()=>{},()=>{});
             }
-          }
-        });
+          })
       });
     },
-  },
-  computed: {
-    ...mapGetters({
-      getToken: "auth/getToken",
-    }),
-  },
+  }
 };
 </script>
 

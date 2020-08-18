@@ -1,19 +1,38 @@
 import { isArray } from '@/shared/util'
-import adminRoutes from '@/router/routes/routes-admin'
-import constantRoutes from '@/router/routes/routes-constant'
-import editorRoutes from '@/router/routes/routes-editor'
-import guestRoutes from '@/router/routes/routes-guest'
-import { ACCESS_AUTH } from '@/shared/constant'
-import { default as router, resetRouter } from '@/router/index'
+import adminRoutes from '@/router/routes-asyn'
+import constantRoutes from '@/router/routes-constant'
+import asynRoutes from '@/router/routes-asyn'
+import { addRoutes, resetRouter } from '@/router/index'
 
-const RoutesMap = {
-    [ACCESS_AUTH.GUEST_ACCESS]: guestRoutes,
-    [ACCESS_AUTH.EDITOR_ACCESS]: adminRoutes,
-    [ACCESS_AUTH.ADMIN_ACCESS]: editorRoutes
+function hasRoles(route, roles) {
+    if (route && route.meta && route.meta.roles) {
+        return roles.some(role => route.meta.roles.includes(role))
+    } else {
+        return true
+    }
+}
+
+
+function filterRoutes(routes, roles) {
+    const res = []
+    if (roles.includes('admin')) {
+        return routes
+    } else {
+        routes.forEach((route) => {
+            const tmp = { ...route }
+            if (hasRoles(tmp, roles)) {
+                if (tmp.children) {
+                    tmp.children = filterRoutes(tmp.children, roles)
+                }
+                res.push(tmp)
+            }
+        })
+    }
+    return res
 }
 
 export const routesState = {
-    routes: undefined
+    routes: constantRoutes
 }
 
 export const routesGetters = {
@@ -23,20 +42,23 @@ export const routesGetters = {
 }
 
 export const routesMutations = {
-    setRoutes(state, newRoutes) {
-        state.routes = newRoutes
+    addRoutes(state, newRoutes) {
+        state.routes = state.routes.concat(newRoutes)
     },
-    updateRoutesByLevel(state, level) {
-        if (RoutesMap[level]) {
-            console.log(1)
-            /** 动态添加路由 */
-            resetRouter()
-            router.addRoutes(RoutesMap[level])
-            /** 修改routes，由于router内部的路由表拿不到 */
-            state.routes = isArray(state.routes) 
-                ? constantRoutes.concat(RoutesMap[level])
-                : constantRoutes
-        }
+    resetRoutes(state) {
+        state.routes = constantRoutes
+    },
+    updateRoutesByRoles(state) {
+        /** 修改routes，由于router内部的路由表拿不到 */
+        this.commit('auth/resetRoutes')
+        const roles = this.getters['auth/getRoles']
+        const newRoutes = filterRoutes(asynRoutes, roles)
+        this.commit('auth/addRoutes', newRoutes)
+        /** 动态添加路由 */
+        resetRouter()
+        addRoutes(newRoutes)
+
+        console.log(state.routes)
     }
 }
 
