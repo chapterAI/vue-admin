@@ -9,7 +9,7 @@ const createRouter = () => new VueRouter({
   mode: 'history',
   // base: process.env.BASE_URL,
   routes: constantRoutes,
-  scrollBehavior: () => ({ y: 0 }),
+  // scrollBehavior: () => ({ y: 0 }),
 })
 
 const router = createRouter()

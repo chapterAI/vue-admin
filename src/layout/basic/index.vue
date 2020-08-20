@@ -1,45 +1,54 @@
-
 <template>
   <div id="layout">
     <!-- 侧边栏 -->
     <div id="sideBar-container">
-      <sidebar :collapse="collapse"></sidebar>
+      <sidebar></sidebar>
     </div>
     <!-- 右侧主体 -->
-    <div>
+
+    <div id="main-container">
       <!-- 上导航 -->
+      <!-- <el-scrollbar style="height:100vh"> -->
+      <navbar id="nav-bar"></navbar>
       <!-- 上记录栏 -->
+      <tagviews id="tag-views"></tagviews>
       <!-- 设置窗口 -->
-      <!-- body部分 -->
+      <!-- main部分 -->
       <transition name="fade-transform" mode="out-in">
-        <keep-alive>
-          <router-view id="main-app"></router-view>
-        </keep-alive>
+        <router-view id="main-app" v-if="isRouterAlice"></router-view>
       </transition>
+      <!-- </el-scrollbar> -->
     </div>
   </div>
 </template>
 
 <script>
-import Sidebar from "./sideBar/Sidebar";
+import Sidebar from "./sidebar/Sidebar";
+import Navbar from "./navbar/Navbar";
+import Tagviews from "./tagviews/TagViews";
 
 export default {
   components: {
     Sidebar,
+    Navbar,
+    Tagviews,
   },
-  props: {},
   data() {
     return {
-      collapse: false,
+      isRouterAlice: true,
+    };
+  },
+  provide() {
+    return {
+      reload: this.reload,
     };
   },
   methods: {
-    toggleCollapse() {
-      if (this.collapse) {
-        this.collapse = false;
-      } else {
-        this.collapse = true;
-      }
+    reload() {
+      this.isRouterAlice = false;
+      this.$nextTick(function () {
+        this.isRouterAlice = true;
+      });
     },
   },
 };
@@ -47,7 +56,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../style/variables.scss";
-$sideBarWidth:13.8vw;
+$sideBarWidth: 13.8vw;
 
 #layout {
   display: flex;
@@ -57,11 +66,20 @@ $sideBarWidth:13.8vw;
     background-color: $menuBg;
   }
 
-  #main-app {
+  #main-container {
     width: 100-$sideBarWidth;
     height: 100vh;
     overflow: auto;
-  }
 
+    #nav-bar {
+      height: 7.2vh;
+      overflow: hidden;
+    }
+    #tag-views {
+      box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    }
+    #main-app {
+    }
+  }
 }
 </style>

@@ -2,7 +2,7 @@
   <el-scrollbar style="height:100vh">
     <el-menu
       :default-active="activeMenu"
-      :collapse="isCollapse"
+      :collapse="false"
       :background-color="variables.menuBg"
       :text-color="variables.menuText"
       :unique-opened="false"
@@ -29,35 +29,29 @@ export default {
   components: {
     SidebarItem,
   },
-  props: {
-    collapse: {
-      type: Boolean,
-      default: true,
-    },
+  data() {
+    return {
+      refresh: false,
+    };
   },
   computed: {
     ...mapGetters({
       routes: "auth/getRoutes",
+      getCollapse: "layout/getCollapse"
     }),
     variables() {
       return variables;
     },
     activeMenu() {
-      const route = this.$route;
-      const { meta, path } = route;
-      // if set path, the sidebar will highlight the path you set
-      if (meta.activeMenu) {
-        return meta.activeMenu;
-      }
+      let { path } = this.$route;
       return path;
     },
     isCollapse() {
-      return this.collapse;
+      return this.getCollapse;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -6,10 +6,12 @@ export default [
     {
         name: 'Admin',
         path: '/admin',
+        redirect:'/admin/demo1',
         component: BasicLayout,
         meta: { 
             title:'Admin',
-            icon:'el-icon-bell'
+            icon:'el-icon-bell',
+            roles: ['editor','admin'],
         },
         children: [
             {
@@ -31,7 +33,7 @@ export default [
                     title:'Admin-editor',
                     icon:'el-icon-s-shop'
                 }
-            }
+            },
         ]
     },
     {
@@ -39,5 +41,13 @@ export default [
         path: '*',
         hidden:true,
         component: () => import('@/views/notFound/404.vue')
+    },
+    {
+        name: 'Link',
+        path: 'http://www.baidu.com',
+        meta: {
+            title:'Link',
+            icon:''
+        }     
     }
 ]

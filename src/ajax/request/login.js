@@ -3,7 +3,7 @@ import { setAnimation, clearAnimation } from '@/ajax/base/animation-manager'
 
 /* 获取token */
 export function loginAndGetToken(loginObj) {
-
+    
     const params = formDataBeforeLogin(loginObj)
 
     return Request({
@@ -11,7 +11,7 @@ export function loginAndGetToken(loginObj) {
         method: 'get',
         params: params
     }).then((data) => {
-
+        
         return formDataAfterLogin(data)
     })
 }

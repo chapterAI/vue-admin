@@ -1,10 +1,12 @@
 <template>
-  <component :is="type" v-bind:to="checkhref(to)">
+  <component :is="type" v-bind="checkhref(to)" @click="activeLightHack">
     <slot />
   </component>
 </template>
 
 <script>
+import { isHttpRequest, matchHttp } from "@/layout/basic/helper";
+import { mapMutations } from "vuex";
 export default {
   props: {
     to: {
@@ -16,14 +18,28 @@ export default {
     return {};
   },
   methods: {
-    /** 为使得 */
     checkhref(to) {
-      return to
+      if (isHttpRequest(to)) {
+        to = matchHttp(to);
+        return {
+          href: to,
+          target: "_blank",
+          rel: "noopener",
+        };
+      } else {
+        return {
+          to: to,
+        };
+      }
     },
   },
   computed: {
     type() {
-      return "router-link";
+      if (isHttpRequest(this.to)) {
+        return "a";
+      } else {
+        return "router-link";
+      }
     },
   },
 };
@@ -31,8 +47,4 @@ export default {
 
 
 <style lang="scss" scoped>
-a {
-  border: 0px;
-  text-decoration: none;
-}
 </style>

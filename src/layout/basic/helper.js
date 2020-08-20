@@ -15,3 +15,11 @@ export function reslovePath(basicPath,relativePath){
         }
     }
 }
+
+export function isHttpRequest(link){
+    return /http[s]?:.*/.test(link)
+}
+
+export function matchHttp(link){
+    return link.match(/http[s]?:.*/)[0]
+}

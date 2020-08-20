@@ -1,5 +1,5 @@
 .el-scrollbar__wrap {
-    overflow-x: hidden !important;
+  overflow-x: hidden !important;
 }
 
 .nest-menu .el-submenu > .el-submenu__title,
@@ -9,4 +9,8 @@
   &:hover {
     background-color: #001528 !important;
   }
+}
+
+.el-tabs__header{
+  margin: 0 !important;
 }

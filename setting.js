@@ -1,3 +1,3 @@
 module.exports = {
-    title:'vue-admin'
+    title:'Vue - Admin'
 }

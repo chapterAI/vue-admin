@@ -1,6 +1,14 @@
 <template>
   <div v-if="!route.hidden">
-    <template v-if="!hasChildren">
+    <template v-if="noMenu(route)">
+      <router-link :to="reslovePath(routeForNoMenu.path)">
+        <el-menu-item :index="reslovePath(routeForNoMenu.path)">
+          <i :class="routeForNoMenu.meta && routeForNoMenu.meta.icon"></i>
+          <span slot="title">{{ routeForNoMenu.meta && routeForNoMenu.meta.title }}</span>
+        </el-menu-item>
+      </router-link>
+    </template>
+    <template v-else-if="!hasChildren">
       <router-link :to="basicPath">
         <el-menu-item :index="basicPath">
           <i :class="route.meta && route.meta.icon"></i>
@@ -49,11 +57,27 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      routeForNoMenu: undefined,
+    };
   },
   methods: {
     reslovePath(path) {
       return reslovePath(this.basicPath, path);
+    },
+    noMenu(route) {
+      const meta = route.meta;
+      const children = route.children;
+      if (meta && meta.noMenu) {
+        if (!children) {
+          return false;
+        } else {
+          this.routeForNoMenu = children[0];
+          return true;
+        }
+      } else {
+        return false;
+      }
     },
   },
   computed: {
@@ -70,14 +94,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.nest-menu .el-submenu > .el-submenu__title,
-.el-submenu .el-menu-item {
-  background-color: #1f2d3d !important;
-
-  &:hover {
-    background-color: #001528 !important;
-  }
-}
-
 </style>
