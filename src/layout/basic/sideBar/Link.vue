@@ -1,5 +1,5 @@
 <template>
-  <component :is="type" v-bind="checkhref(to)" @click="activeLightHack">
+  <component :is="type" v-bind="checkhref(to)">
     <slot />
   </component>
 </template>

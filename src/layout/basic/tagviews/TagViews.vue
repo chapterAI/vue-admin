@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -19,12 +21,8 @@ export default {
         {
           title: "Dashboard",
           path: "/index",
-          closable:false
-        },
-        {
-          title: "Admin-editor",
-          path: "/admin/demo2",
-          closable:true
+          name: "About",
+          closable: false,
         },
       ],
     };
@@ -36,9 +34,11 @@ export default {
         this.tabs.push({
           title: newTab.title,
           path: newTab.path,
-          closable:true
+          name: obj.name,
+          closable: true,
         });
         this.activePath = newTab.path;
+        this.addCacheView(obj.name)
       }
       if (action === "remove") {
         const path = obj;
@@ -47,6 +47,7 @@ export default {
         if (activePath === path) {
           tabs.forEach((tab, index) => {
             if (tab.path === path) {
+              this.delCacheView(tab.name)
               let nextTab = tabs[index + 1] || tabs[index - 1];
               if (nextTab) {
                 activePath = nextTab.path;
@@ -59,12 +60,15 @@ export default {
         this.routerPush();
       }
     },
-    handleRoutes(fullPath, title) {
+    handleRoutes(fullPath, title, name) {
       const index = this.hasSameTab(fullPath);
       if (index >= 0) {
         this.activePath = fullPath;
       } else {
-        this.handleTabsEdit({ title: title, path: fullPath }, "add");
+        this.handleTabsEdit(
+          { title: title, path: fullPath, name: name },
+          "add"
+        );
       }
     },
     hasSameTab(path) {
@@ -78,23 +82,30 @@ export default {
       return targetIndex;
     },
     routerPush() {
-      if (this.$route.fullPath === this.activePath) {
+      if (this.$route.path === this.activePath) {
         return;
       }
       this.$router.push(this.activePath);
     },
+    ...mapMutations({
+      addCacheView: "cache/addCacheView",
+      delCacheView: "cache/delCacheView",
+    }),
   },
   watch: {
     $route: function () {
-      const { fullPath, meta } = this.$route;
+      const { path, meta, matched } = this.$route;
       const title = meta.title;
-      this.handleRoutes(fullPath, title);
+      //1写死，表示第二层
+      name = matched[1].components.default.name;
+      this.handleRoutes(path, title, name);
     },
   },
   created() {
-    const { fullPath, meta } = this.$route;
+    const { path, meta, matched } = this.$route;
     const title = meta.title;
-    this.handleRoutes(fullPath, title);
+    const name = matched[1].components.default.name;
+    this.handleRoutes(path, title, name);
   },
 };
 </script>

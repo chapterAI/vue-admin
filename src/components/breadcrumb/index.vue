@@ -63,7 +63,4 @@ export default {
 .span-font {
   color: lightgrey;
 }
-.a-font {
-  
-}
 </style>

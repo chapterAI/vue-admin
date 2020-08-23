@@ -2,22 +2,22 @@
   <div id="layout">
     <!-- 侧边栏 -->
     <div id="sideBar-container">
-      <sidebar></sidebar>
+      <sidebar onselectstart="return false"></sidebar>
     </div>
     <!-- 右侧主体 -->
 
     <div id="main-container">
       <!-- 上导航 -->
-      <!-- <el-scrollbar style="height:100vh"> -->
-      <navbar id="nav-bar"></navbar>
+      <navbar id="nav-bar" onselectstart="return false"></navbar>
       <!-- 上记录栏 -->
-      <tagviews id="tag-views"></tagviews>
+      <tagviews id="tag-views" onselectstart="return false"></tagviews>
       <!-- 设置窗口 -->
       <!-- main部分 -->
       <transition name="fade-transform" mode="out-in">
-        <router-view id="main-app" v-if="isRouterAlice"></router-view>
+        <keep-alive :include="getCacheViews">
+          <router-view id="main-app" v-if="isRouterAlice"></router-view>
+        </keep-alive>
       </transition>
-      <!-- </el-scrollbar> -->
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@
 import Sidebar from "./sidebar/Sidebar";
 import Navbar from "./navbar/Navbar";
 import Tagviews from "./tagviews/TagViews";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -51,12 +52,17 @@ export default {
       });
     },
   },
+  computed:{
+    ...mapGetters({
+      getCacheViews:'cache/getCacheViews'
+    })
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../style/variables.scss";
-$sideBarWidth: 13.8vw;
+$sideBarWidth: 13.4vw;
 
 #layout {
   display: flex;
@@ -70,7 +76,7 @@ $sideBarWidth: 13.8vw;
     width: 100-$sideBarWidth;
     height: 100vh;
     overflow: auto;
-
+    overflow-x: hidden;
     #nav-bar {
       height: 7.2vh;
       overflow: hidden;

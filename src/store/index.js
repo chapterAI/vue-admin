@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import AuthModule from './module-auth/index.js'
-import SideBar from './module-layout/sidebar'
+import AuthModule from './module/user.js'
+import SideBar from './module/layout'
+import Cache from './module/cache'
 
 Vue.use(Vuex)
 
@@ -10,6 +11,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules:{
     'auth':AuthModule,
-    'layout':SideBar
+    'layout':SideBar,
+    'cache':Cache
   }
 })

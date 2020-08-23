@@ -114,17 +114,29 @@ export default [
         ]
     },
     {
-        path: '/5',
-        name: 'Layout5',
-        redirect: '/5/index5',
+        path: '/components',
+        name: 'Components',
+        redirect: '/components/js-editor',
         component: BasicLayout,
-        meta: { title: 'Layout5', icon: 'el-icon-picture-outline-round' },
+        meta: { title: 'Components', icon: 'el-icon-picture-outline-round' },
         children: [
             {
-                path: 'index5',
-                name: 'Index5',
-                component: () => import('@/views/About.vue'),
-                meta: { title: 'index', icon: 'el-icon-help' }
+                path: 'js-editor',
+                name: 'JsEditor',
+                component: () => import('@/views/js-editor/JsEditor.vue'),
+                meta: { title: 'JsEditor', icon: '' }
+            },
+            {
+                path: 'show-3d',
+                name: 'Show 3D',
+                component: () => import('@/views/showing3d/showing.vue'),
+                meta: { title: 'Show 3D', icon: '' }
+            },
+            {
+                path: 'setting',
+                name: 'Setting',
+                component: () => import('@/views/setting/setting.vue'),
+                meta: { title: 'Setting', icon: '' }
             }
         ]
     },

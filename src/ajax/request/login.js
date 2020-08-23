@@ -5,13 +5,15 @@ import { setAnimation, clearAnimation } from '@/ajax/base/animation-manager'
 export function loginAndGetToken(loginObj) {
     
     const params = formDataBeforeLogin(loginObj)
+    setAnimation('LoginSuccess')
 
     return Request({
         url: '/login',
         method: 'get',
         params: params
     }).then((data) => {
-        
+        console.log(data)
+        clearAnimation()
         return formDataAfterLogin(data)
     })
 }

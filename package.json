@@ -16,6 +16,8 @@
     "nprogress": "^0.2.0",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.3",
+    "three": "^0.119.1",
+    "three-js": "^79.0.0",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
     "vue-router": "^3.4.3",

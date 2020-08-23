@@ -8,6 +8,7 @@
       :unique-opened="false"
       :active-text-color="variables.menuActiveText"
       :collapse-transition="false"
+      class="el-menu-vertical-demo"
       mode="vertical"
     >
       <sidebar-item
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import SidebarItem from "./item/SidebarItem";
+import SidebarItem from "./SidebarItem";
 import { mapGetters } from "vuex";
 import variables from "@/style/variables.scss";
 
@@ -54,4 +55,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
