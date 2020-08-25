@@ -82,6 +82,18 @@ export default [
                 meta: { title: 'JsEditor', icon: '' }
             },
             {
+                path: 'json-editor',
+                name: 'JsonEditor',
+                component: () => import('@/views/json-editor/index.vue'),
+                meta: { title: 'JsonEditor', icon: '' }               
+            },
+            {
+                path: 'markdown-editor',
+                name: 'MarkdownEditor',
+                component: () => import('@/views/markdown-editor/index.vue'),
+                meta: { title: 'MarkdownEditor', icon: '' }               
+            },
+            {
                 path: 'show-3d',
                 name: 'Show 3D',
                 component: () => import('@/views/showing3d/showing.vue'),

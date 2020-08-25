@@ -1,5 +1,5 @@
 <template>
-  <div class="js-editor">
+  <div class="json-editor">
       <textarea ref="textarea" />
   </div>
 </template>
@@ -12,48 +12,53 @@ import "codemirror/lib/codemirror.css";
 import "codemirror/theme/duotone-light.css";
 /** mode模块 */
 import "codemirror/mode/javascript/javascript";
+/** lint */
+require("script-loader!jsonlint");
+import "codemirror/addon/lint/lint";
+import "codemirror/addon/lint/lint.css";
+import "codemirror/addon/lint/json-lint";
 
 export default {
-  name: "JsEditor",
+  name: "JsonEditor",
   props: ["value"],
   data() {
     return {
-      jsEditor: false,
+      jsonEditor: false,
     };
   },
   watch: {
     value(value) {
-      const editorValue = this.jsEditor.getValue();
+      const editorValue = this.jsonEditor.getValue();
       if (value !== editorValue) {
-        this.jsEditor.setValue(JSON.stringify(this.value, null, 2));
+        this.jsonEditor.setValue(JSON.stringify(this.value, null, 2));
       }
     },
   },
   mounted() {
-    this.jsEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
+    this.jsonEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
       lineNumbers: true,
-      mode: "javascript",
+      mode: "application/json",
       gutters: ["CodeMirror-lint-markers"],
       theme: "duotone-light",
       lint: true,
     });
 
-    this.jsEditor.setValue(JSON.stringify(this.value, null, 2));
-    this.jsEditor.on("change", (cm) => {
+    this.jsonEditor.setValue(JSON.stringify(this.value, null, 2));
+    this.jsonEditor.on("change", (cm) => {
       this.$emit("changed", cm.getValue());
       this.$emit("input", cm.getValue());
     });
   },
   methods: {
     getValue() {
-      return this.jsEditor.getValue();
+      return this.jsonEditor.getValue();
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.js-editor {
+.json-editor {
   height: 100%;
   position: relative;
 
