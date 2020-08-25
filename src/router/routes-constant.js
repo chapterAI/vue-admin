@@ -16,45 +16,45 @@ import BasicLayout from '@/layout/basic'
 export default [
     {
         path: '/',
-        name: 'Layout',
+        name: 'DashBoard',
         component: BasicLayout,
         redirect: '/index',
-        meta: { title: 'Layout', icon: 'el-icon-picture-outline-round' },
+        meta: { title: 'DashBoard', icon: 'el-icon-sunrise-1' },
         children: [
             {
                 path: 'index',
                 name: 'Index',
                 component: () => import('@/views/About.vue'),
-                meta: { title: 'index', icon: 'el-icon-help' }
+                meta: { title: 'index', icon: '' }
             }
         ]
     },
     {
-        path: '/1',
-        name: 'Layout1',
+        path: '/Menu',
+        name: 'Menu',
         component: BasicLayout,
-        redirect: '/1/index1',
-        meta: { title: 'Layout1', icon: 'el-icon-picture-outline-round' },
+        redirect: '/Menu/index1',
+        meta: { title: 'Menu', icon: 'el-icon-s-operation' },
         children: [
             {
                 path: 'index1',
                 name: 'Index1',
-                redirect: '/1/index1/index1-2',
+                redirect: '/Menu/index1/index1-2',
                 component: () => import('@/views/About.vue'),
-                meta: { title: 'index1', icon: 'el-icon-help' },
+                meta: { title: 'index1', icon: '' },
                 children: [
                     {
                         path: 'index1-1',
                         name: 'Index1-1',
-                        redirect: '/1/index1/index1-1/index1-1-1',
+                        redirect: '/Menu/index1/index1-1/index1-1-1',
                         component: BasicLayout,
-                        meta: { title: 'Index1-1', icon: 'el-icon-picture-outline-round' },
+                        meta: { title: 'Index1-1', icon: '' },
                         children: [
                             {
                                 path: 'index1-1-1',
                                 name: 'Index1-1-1',
                                 component: () => import('@/views/About.vue'),
-                                meta: { title: 'Index1-1-1', icon: 'el-icon-help' }
+                                meta: { title: 'Index1-1-1', icon: '' }
                             }
                         ]
                     },
@@ -62,54 +62,9 @@ export default [
                         path: 'index1-2',
                         name: 'Index1-2',
                         component: () => import('@/views/About.vue'),
-                        meta: { title: 'index1-2', icon: 'el-icon-help' },
+                        meta: { title: 'index1-2', icon: '' },
                     },
                 ]
-            }
-        ]
-    },
-    {
-        path: '/2',
-        name: 'Layout2',
-        redirect: '/2/index2',
-        component: BasicLayout,
-        meta: { title: 'Layout2', icon: 'el-icon-picture-outline-round', noMenu: true },
-        children: [
-            {
-                path: 'index2',
-                name: 'Index2',
-                component: () => import('@/views/About.vue'),
-                meta: { title: 'index', icon: 'el-icon-help' }
-            }
-        ]
-    },
-    {
-        path: '/3',
-        name: 'Layout3',
-        redirect: '/3/index3',
-        component: BasicLayout,
-        meta: { title: 'Layout3', icon: 'el-icon-picture-outline-round' },
-        children: [
-            {
-                path: 'index3',
-                name: 'Index3',
-                component: () => import('@/views/About.vue'),
-                meta: { title: 'index', icon: 'el-icon-help' }
-            }
-        ]
-    },
-    {
-        path: '/4',
-        name: 'Layout4',
-        redirect: '/4/index4',
-        component: BasicLayout,
-        meta: { title: 'Layout4', icon: 'el-icon-picture-outline-round' },
-        children: [
-            {
-                path: 'index4',
-                name: 'Index4',
-                component: () => import('@/views/About.vue'),
-                meta: { title: 'index', icon: 'el-icon-help' }
             }
         ]
     },
@@ -118,7 +73,7 @@ export default [
         name: 'Components',
         redirect: '/components/js-editor',
         component: BasicLayout,
-        meta: { title: 'Components', icon: 'el-icon-picture-outline-round' },
+        meta: { title: 'Components', icon: 'el-icon-s-grid' },
         children: [
             {
                 path: 'js-editor',
@@ -147,10 +102,25 @@ export default [
         meta: { title: 'About', icon: 'el-icon-video-camera' }
     },
     {
+        path: '/clipboard-view',
+        name: 'ClipboardView',
+        redirect: '/clipboard-view/clipboard',
+        component: BasicLayout,
+        meta: { title: 'ClipboardView', icon: 'el-icon-picture-outline-round',noMenu: true },
+        children: [
+            {
+                path: 'clipboard',
+                name: 'ClipBoard',
+                component: () => import('@/views/clipboard'),
+                meta: { title: 'ClipBoard', icon: 'el-icon-document-copy' }               
+            }
+        ]
+    },
+    {
         path: '/login',
         name: 'Login',
         hidden: true,
         component: () => import('@/views/login/Login.vue'),
-        meta: { title: 'Login', icon: 'el-icon-setting' }
+        meta: { title: 'Login', icon: '' }
     }
 ]

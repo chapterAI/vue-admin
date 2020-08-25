@@ -11,7 +11,7 @@ export default {
   props: {
     visibleHeight: {
       type: Number,
-      default: 200,
+      default: 400,
     },
     backPosition: {
       type: Number,

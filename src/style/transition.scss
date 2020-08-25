@@ -46,3 +46,18 @@
 .breadcrumb-leave-active {
   position: absolute;
 }
+
+/* move */
+.translation-move {
+  transition: all .2s;
+}
+
+.translation-enter-active,
+.translation-leave-active {
+  transition: all .2s;
+}
+
+.translation-enter,
+.translation-leave-active {
+  transform: translateX(20px);
+}

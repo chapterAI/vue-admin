@@ -44,10 +44,10 @@ export default [
     },
     {
         name: 'Link',
-        path: 'http://www.baidu.com',
+        path: 'https://github.com/chapterAI',
         meta: {
             title:'Link',
-            icon:''
+            icon:'el-icon-s-promotion'
         }     
     }
 ]

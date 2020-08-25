@@ -61,6 +61,6 @@ export default {
   font-weight: 200;
 }
 .span-font {
-  color: lightgrey;
+  color: #97a8be;
 }
 </style>

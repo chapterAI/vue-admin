@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     Demo1
     <br />Demo1
     <br />Demo1
@@ -142,6 +143,9 @@
     <br />Demo1
     <br />Demo1
     <br />Demo1
+    <sticky>
+      <div style="backgroundColor:#000;height:20px;"></div>
+    </sticky>
     <br />Demo1
     <br />Demo1
     <br />Demo1
@@ -307,11 +311,13 @@
 
 <script>
 import backToTop from "@/components/backtotop/index";
+import sticky from '@/components/sticky/index'
 
 export default {
   name: "demo1",
   components: {
     backToTop,
+    sticky
   },
 };
 </script>

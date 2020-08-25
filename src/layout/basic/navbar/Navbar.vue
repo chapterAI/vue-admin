@@ -10,6 +10,8 @@
       <breadcrumb class="breadcrumb-container"></breadcrumb>
     </div>
     <div class="right">
+      <header-search class="search-container"></header-search>
+      <screenfull class="screenfull-container"></screenfull>
       <el-button class="logout" @click="logout">登出</el-button>
     </div>
   </div>
@@ -18,27 +20,31 @@
 <script>
 import Breadcrumb from "@/components/breadcrumb";
 import Humburger from "./hamburger";
-import { mapMutations,mapActions } from "vuex";
+import HeaderSearch from "@/components/headersearch";
+import Screenfull from "@/components/fullscreen"
+import { mapMutations, mapActions } from "vuex";
 
 export default {
   components: {
     Breadcrumb,
     Humburger,
+    HeaderSearch,
+    Screenfull
   },
   methods: {
     ...mapMutations({
       toggleCollapse: "layout/toggleCollapse",
     }),
     ...mapActions({
-        clear:'auth/logout'
+      clear: "auth/logout",
     }),
     toggleSideBar() {
       this.toggleCollapse();
     },
-    logout(){
-        this.clear()
-        this.$router.push('/login')
-    }
+    logout() {
+      this.clear();
+      this.$router.push("/login");
+    },
   },
 };
 </script>
@@ -62,6 +68,22 @@ export default {
         background: rgba(0, 0, 0, 0.025);
         transition: 0.3s;
       }
+    }
+  }
+  .right{
+    .search-container{
+      display: inline-block;     
+      position: relative;
+      top:5px;
+    }
+    .screenfull-container{
+      display: inline-block; 
+      position: relative;
+      top:5px;
+      margin-left:1vw;
+    }
+    .logout{
+      margin-left:1.5vw;
     }
   }
 }
