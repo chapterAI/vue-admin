@@ -12,6 +12,7 @@
     "codemirror": "^5.57.0",
     "cookie-js": "0.0.1",
     "core-js": "^3.6.5",
+    "driver": "^1.0.0",
     "driver.js": "^0.9.8",
     "element-ui": "^2.4.5",
     "fuse.js": "^6.4.1",

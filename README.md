@@ -1,19 +1,22 @@
-# admin
+# vue-admin
 
-## Project setup
+## 项目启动
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 编译开发
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 打包处理
 ```
 npm run build
 ```
 
-### Customize configuration
+### vue-cli
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 开发文档
+See [vue-admin document](https://chapterai.gitee.io/vue-admin-documentation/)
