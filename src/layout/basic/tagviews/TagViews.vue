@@ -38,7 +38,7 @@ export default {
           closable: true,
         });
         this.activePath = newTab.path;
-        this.addCacheView(obj.name)
+        this.addCacheView(obj.name);
       }
       if (action === "remove") {
         const path = obj;
@@ -47,7 +47,6 @@ export default {
         if (activePath === path) {
           tabs.forEach((tab, index) => {
             if (tab.path === path) {
-              this.delCacheView(tab.name)
               let nextTab = tabs[index + 1] || tabs[index - 1];
               if (nextTab) {
                 activePath = nextTab.path;
@@ -56,7 +55,12 @@ export default {
           });
         }
         this.activePath = activePath;
-        this.tabs = tabs.filter((tab) => tab.path !== path);
+        this.tabs = tabs.filter((tab) => {
+          if (tab.path === path) {
+            this.delCacheView(tab.name);
+          }
+          return tab.path !== path;
+        });
         this.routerPush();
       }
     },

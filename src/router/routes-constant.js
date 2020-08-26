@@ -25,8 +25,14 @@ export default [
                 path: 'index',
                 name: 'Index',
                 component: () => import('@/views/About.vue'),
-                meta: { title: 'index', icon: '' }
-            }
+                meta: { title: 'Index', icon: '' }
+            },
+            {
+                path: 'guide',
+                name: 'Guide',
+                component: () => import('@/views/guide'),
+                meta: { title: 'Guide', icon: '' }
+            },
         ]
     },
     {
@@ -41,7 +47,7 @@ export default [
                 name: 'Index1',
                 redirect: '/Menu/index1/index1-2',
                 component: () => import('@/views/About.vue'),
-                meta: { title: 'index1', icon: '' },
+                meta: { title: 'Index1', icon: '' },
                 children: [
                     {
                         path: 'index1-1',
@@ -62,7 +68,7 @@ export default [
                         path: 'index1-2',
                         name: 'Index1-2',
                         component: () => import('@/views/About.vue'),
-                        meta: { title: 'index1-2', icon: '' },
+                        meta: { title: 'Index1-2', icon: '' },
                     },
                 ]
             }

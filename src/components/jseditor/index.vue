@@ -68,10 +68,6 @@ export default {
       min-height: 300px;
       overflow-x: hidden !important;
     }
-
-    .cm-s-rubyblue span.cm-string {
-      color: #f08047;
-    }
   }
 }
 </style>
