@@ -75,6 +75,21 @@ export default [
         ]
     },
     {
+        path: '/icons',
+        name: 'Icons',
+        redirect: '/icons/icon-show',
+        component: BasicLayout,
+        meta: { title: 'Icons', icon: '', noMenu: true },
+        children: [
+            {
+                path: 'icon-show',
+                name: 'IconShow',
+                component: () => import('@/views/icons/index.vue'),
+                meta: { title: 'IconShow', icon: 'el-icon-goods' }               
+            }
+        ]
+    },
+    {
         path: '/components',
         name: 'Components',
         redirect: '/components/js-editor',

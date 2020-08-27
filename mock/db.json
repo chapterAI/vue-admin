@@ -1,0 +1,46 @@
+{
+    "login": [
+        {
+            "id": "001",
+            "username": "admin",
+            "token": "d#$ffsd5c56c1]56saAS15#$sgdwAT54gdFGHsagd"
+        },
+        {
+            "id": "002",
+            "username": "editor",
+            "token": "s#a$%dSAS11Dsf32#$%5a9s@sadSAa561sd11ASd6c35"
+        },
+        {
+            "id": "003",
+            "username": "guest",
+            "token": "saAe3#@35sdsadAD6a4$432aDFBca32#6216#$sDFas"
+        },
+        {
+            "id": "004",
+            "username": "none",
+            "token": "saAe3#@35asdasAda$432aDFBca32#6216#$sDFas"
+        }
+    ],
+    "getUserInfo": [
+        {
+            "id": "001",
+            "access": "admin",
+            "token": "d#$ffsd5c56c1]56saAS15#$sgdwAT54gdFGHsagd"
+        },
+        {
+            "id": "002",
+            "access": "super_editor",
+            "token": "s#a$%dSAS11Dsf32#$%5a9s@sadSAa561sd11ASd6c35"
+        },
+        {
+            "id": "003",
+            "access": "guest",
+            "token": "saAe3#@35sdsadAD6a4$432aDFBca32#6216#$sDFas"
+        },
+        {
+            "id": "004",
+            "access": "none",
+            "token": "saAe3#@35asdasAda$432aDFBca32#6216#$sDFas"           
+        }
+    ]
+}
